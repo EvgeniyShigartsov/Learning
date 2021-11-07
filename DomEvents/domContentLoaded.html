@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 190vh;
+        }
+    </style>
+    <script>
+
+        function ready() {
+            console.log('Dom is ready');
+            console.log(`Image size: ${img.offsetWidth}x${img.offsetHeight}`)
+        }
+        document.addEventListener('DOMContentLoaded', ready)
+
+        window.onload = function() {
+            console.log('Page is loaded');
+            console.log(`Image size: ${img.offsetWidth}x${img.offsetHeight}`)
+        }
+    </script>
+
+</head>
+<body>
+    <div id='showScroll'>20</div>
+    <img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0">
+
+    <!-- <script>
+        window.onbeforeunload = function(){ return false;}
+
+        window.addEventListener('scroll', function() {
+            document.getElementById('showScroll').innerHTML = pageYOffset + 'px';
+            console.log(`${document.getElementById('showScroll').innerHTML = pageYOffset}px`)
+        });
+
+    </script> -->
+
+</body>
+</html>

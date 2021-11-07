@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <ul>
+        <li class="test" id='one'>Этот</li>
+        <li class="test">тест</li>
+      </ul>
+      <ul>
+        <li class="test">полностью</li>
+        <li class="test">пройден</li>
+      </ul>
+
+
+    <div id='test' style="height: 60px;">
+        <div id='test-element'>Element</div>
+    </div>
+
+    <a href="http://example.com/file.zip.com" id='block'>Первая ссылка</a>
+    <a href="http://ya.ru.com" class="block">Вторая ссылка</a>
+
+    <script>
+
+
+        
+        let block = document.querySelector('.block');
+        block.style.display = 'none'
+        let test = document.getElementById('block');
+        test.style.display = 'none'
+        for(let elem of document.body.children){
+            if (elem.matches('a[href$="com"]')){
+                console.log(elem.href)
+            }
+        }
+
+        for (let elem of document.body.children){
+            if (elem.matches("#one")){
+                alert(elem)
+            }
+        }
+
+        let elem = document.querySelector('li')
+        console.log(elem)
+        let elements = document.querySelectorAll('.test');
+        console.log(elements)
+
+        for (let item of elements){
+            alert(item.innerHTML);
+        }
+
+        let elem = document.getElementById('test-element')
+        elem.style.background = 'red'
+        
+    </script>
+
+    
+</body>
+</html>

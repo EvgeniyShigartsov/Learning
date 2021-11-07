@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            class Human {
+                constructor(name) {
+                    this.name = name
+                }
+                changeName(newName) {
+                    this.name = newName
+                }
+            }
+            class Warrior extends Human {
+                constructor(name) {
+                    super(name)
+                    this.power = 10
+                }
+            }
+            // class
+            const human = new Human('Jack')
+        </script>
+    </body>
+</html>

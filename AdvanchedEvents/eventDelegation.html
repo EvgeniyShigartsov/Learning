@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            td, table {
+                border: 1px solid gray;
+            }
+    </style>
+</head>
+<body>
+    
+    <!-- <table class="table" id='table'>
+        <tr>
+            <th colspan="3">Квадрат <b>Bagua</b>: Направление, Элемент, Цвет, Значение</th>
+        </tr>
+        <tr>
+            <td style="background-color: wheat;">Северо запад</td>
+            <td>Север</td>
+            <td>Северо-Восток</td>
+        </tr> -->
+
+        <!-- <div id="menu">
+            <button data-action="save">Сохранить</button>
+            <button data-action="load">Загрузить</button>
+            <button data-action="search">Поиск</button>
+        </div>
+
+        <input class="input" type="button" value="1" data-counter>
+        <input class="input" type="button" value="20" data-counter> -->
+
+        <button data-toggle-id='subscribe-mail'>
+            Показать форму подписки
+        </button>
+
+        <form id='subscribe-mail' hidden>
+            Ваша почта: <input type="email">
+        </form>
+          
+    <!-- </table> -->
+
+    <script>
+    
+        document.addEventListener('click', function(event){
+            let id = event.target.dataset.toggleId;
+            if (!id) return
+
+            let elem = document.getElementById(id);
+            elem.hidden = !elem.hidden
+        })
+
+        // document.addEventListener('click', function(event){
+        //     if (event.target.dataset.counter !== undefined){
+        //         event.target.value++
+        //     }
+        // });
+
+        //   class Menu {
+        //   constructor(elem) {
+        //     this._elem = elem;
+        //     elem.onclick = this.onClick.bind(this);
+        //   }
+        //   save() {
+        //     alert('сохраняю');
+        //   }
+        //   load() {
+        //     alert('загружаю');
+        //   }
+        //   search() {
+        //     alert('ищу');
+        //   }
+        //   onClick(event) {
+        //     let action = event.target.dataset.action;
+        //     if (action) {
+        //       this[action]();
+        //     }
+        //   };
+        //   }
+        // new Menu(menu);
+        
+    //    let selectedTd;
+
+    //     document.querySelector('#table').addEventListener('click', function(event){
+    //         let target = event.target;
+    //         console.log(target);
+    //         if (target.tagName != 'TD') return;
+    //         highlight(target);
+    //     })
+
+    //     function highlight (td){
+    //         if (selectedTd){
+    //             selectedTd.classList.remove('highlight')
+    //         }
+    //         selectedTd = td;
+
+    //         selectedTd.classList.add('highlight');
+    //     }
+    </script>
+
+</body>
+</html>

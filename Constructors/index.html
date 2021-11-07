@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // const john = {
+            //     name: 'John',
+            //     sales: 10,
+            //     sell: function (thing) {
+            //         this.sales += 1
+            //         return 'Manager ' + this.name + ' sold ' + thing
+            //     },
+            // }
+            // console.log(john.sales)
+            // console.log(john.sell('Pineapple'))
+            // console.log(john.sales)
+
+            // const mary = {
+            //     name: 'Mary',
+            //     sales: 120,
+            //     sell: function (thing) {
+            //         this.sales += 1
+            //         return 'Manager ' + this.name + ' sold ' + thing
+            //     },
+            // }
+
+            const Manager = function (name, sales) {
+                this.name = name
+                this.sales = sales
+                this.sell = function (thing) {
+                    this.sales += 1
+                    return `Manager ${this.name} sold ${thing}`
+                }
+            }
+
+            // const john = new Manager('John', 15)
+            // const mary = new Manager('Mary', 75)
+            // console.log(john.constructor.name)
+            // console.log(mary instanceof Manager)
+
+            const ManagerTwo = function (name, sales) {
+                this.name = name
+                this.sales = sales
+            }
+            ManagerTwo.prototype = {
+                sell: function (thing) {
+                    this.sales += 1
+                    return `Manager ${this.name} sold ${thing}`
+                },
+                speak: function (word) {
+                    return this.name + ' says ' + word
+                },
+            }
+            // const Jack = new ManagerTwo('Jack', 20)
+            // const Kate = new ManagerTwo('Kate', 40)
+            // console.log(ManagerTwo.prototype.sell)
+            // console.log(Jack.sales, Kate.sales)
+            // Jack.sell('bike')
+            // Kate.sell('bus')
+            // console.log(Jack.sales, Kate.sales)
+
+            // console.dir([])
+            // console.dir({})
+            // console.dir(Boolean)
+            // console.dir(Kate)
+            // console.log(Jack.speak('Hello'))
+
+            // const Car = function (model, year) {
+            //     this.model = model
+            //     this.year = typeof year !== 'number' ? null : year
+            // }
+
+            // const ford = new Car('Ford', '2019')
+            // const opel = new Car('Opel', 2007)
+
+            // console.log(ford)
+            // console.log(opel)
+
+            // const ScoreGrid = function (size) {
+            //     this.grid = new Array(size).fill(0)
+            //     this.increaseScore = function (playerNum) {
+            //         this.grid[playerNum - 1] += 1
+            //     }
+            //     this.sayLeader = function () {
+            //         // const max = Math.max(...this.grid)
+            //         // const player = this.grid.indexOf(max) + 1
+            //         // return `Игрок ${player} имеет ${max} очков`
+
+            //         let highest = -1
+            //         let leader = -1
+            //         for (let i = 0; i < this.grid.length; i++) {
+            //             if (highest < this.grid[i]) {
+            //                 highest = this.grid[i]
+            //                 leader = i + 1
+            //             }
+            //         }
+            //     }
+            // }
+            // const game1 = new ScoreGrid(5)
+            // game1.increaseScore(0)
+            // game1.increaseScore(1)
+            // game1.increaseScore(2)
+            // game1.increaseScore(3)
+            // game1.increaseScore(4)
+            // game1.increaseScore(4)
+            // game1.increaseScore(4)
+            // console.log(game1.sayLeader())
+
+            const Numbers = function (nums = []) {
+                this.nums = nums
+                this.addNum = function (num) {
+                    this.nums.push(num)
+                }
+                this.removeNum = function (num) {
+                    for (let item of this.nums) {
+                        if (item === num) {
+                            this.nums.splice(item, 1)
+                        }
+                    }
+                    return this.nums
+                }
+            }
+            const test = new Numbers([1, 3, 5, 8])
+            console.log(test)
+            test.addNum(3)
+            test.addNum(3)
+            test.addNum(3)
+            test.addNum(3)
+            console.log(test.removeNum(3))
+            console.log(test)
+        </script>
+    </body>
+</html>

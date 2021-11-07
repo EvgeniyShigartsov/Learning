@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 200px;
+        }
+        .box {
+            display: inline-block;
+            flex-wrap: wrap;
+            border: 1px solid #ccc;
+        }
+        .row {
+            display: block;
+            border: 3px solid blue;
+            height: 50px;
+            margin-bottom: 2px;
+        }
+        .cell {
+            display: inline-block;
+            border: 2px solid red;
+            height: 30px;
+            width: 30px;
+            margin-left: 1px;
+        }
+        .grid {
+            display: flex;
+            border: 5px solid blue;
+        }
+    </style>
+</head>
+<body>
+    
+    <script>
+
+        function createGrid(size){
+            const body = document.querySelector('body');
+
+            for (let i = 0; i < size; i++){
+                let row = document.createElement('div');
+                row.classList.add('row');
+                for (let k = 0; k < size; k++){
+                    let cell = document.createElement('div');
+                    cell.classList.add('cell')
+                    row.appendChild(cell)
+                }
+                body.appendChild(row);
+            }
+        }
+        createGrid(5)
+
+
+        // function createGridV2(size){
+        //     const body = document.querySelector('body');
+        //     const grid = document.createElement('div');
+        //     body.appendChild(grid)
+        //     grid.classList.add('grid')
+
+        //     for (let i = 0; i < size; i++){
+        //         let cell = document.createElement('div');
+        //         cell.classList.add('cell');
+        //         grid.appendChild(cell)
+        //     }
+        // }
+        // createGridV2(5)
+    </script>
+
+</body>
+</html>

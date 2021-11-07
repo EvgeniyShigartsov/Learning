@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // async function test() {
+            //     return Promise.resolve(1)
+            // }
+            // console.log(test())
+            // test().then(console.log)
+
+            // async function f() {
+            //     const promise = new Promise((resolve, reject) => {
+            //         setTimeout(() => resolve('Ready'), 2000)
+            //     })
+            //     console.log(promise)
+            //     const result = await promise
+            //     console.log(result)
+            //     console.log(promise)
+            // }
+            // f()
+
+            // class Theable {
+            //     constructor(num) {
+            //         this.num = num
+            //     }
+            //     then(resolve, reject) {
+            //         console.log(resolve)
+            //         setTimeout(() => resolve(this.num * 2), 2000)
+            //     }
+            // }
+            // async function f() {
+            //     const result = await new Theable(5)
+            //     console.log(result)
+            // }
+            // f()
+
+            // class Waiter {
+            //     async wait() {
+            //         return await Promise.resolve(1)
+            //     }
+            // }
+            // const test = new Waiter().wait().then(console.log)
+
+            // async function f() {
+            //     try {
+            //         let response = await fetch('/no-user-here')
+            //         let user = await response.json()
+            //     } catch (err) {
+            //         console.log(err)
+            //     }
+            // }
+            // f()
+
+            // async function f() {
+            //     const response = await fetch('http://no-such-url')
+            // }
+            // f().catch(console.log)
+            // const url1 = 'vlabla'
+            // const url2 = 'haha'
+            // async function f() {
+            //     const results = await Promise.all([fetch(url1), fetch(url2)])
+            //     console.log(results)
+            // }
+            // f()
+            // async function multiply(a, b) {
+            //     return a * b
+            // }
+            // async function foo() {
+            //     let result = await multiply(2, 5)
+            //     return result
+            // }
+            // ;(async function () {
+            //     let result = await foo()
+            //     console.log(result)
+            // })()
+            // console.log(foo())
+            // function main() {
+            //     console.log('a')
+            //     setTimeout(function exec() {
+            //         console.log('b')
+            //     })
+
+            //     runWhileLoopForNSeconds(3)
+            //     console.log('c')
+            // }
+            // main()
+            // function runWhileLoopForNSeconds(sec) {
+            //     let start = Date.now()
+            //     now = start
+
+            //     while (now - start < sec * 1000) {
+            //         now = Date.now()
+            //     }
+            // }
+
+            // fetch('https://swapi.dev/api/people/1')
+
+            // async function f(val) {
+            //     console.log(val)
+            // }
+
+            // console.log(1)
+            // f(2)
+            // console.log(3) // 1, 2, 3 ....
+            console.log(1)
+
+            new Promise((res) => {
+                res(console.log(2))
+            }).then((d) => console.log(d))
+
+            console.log(3)
+        </script>
+    </body>
+</html>

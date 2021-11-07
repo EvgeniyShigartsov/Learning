@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p class="test" id='test1' type='tets'>tets</p>
+    <div class="test" id='test2'>tets</div>
+    <input type="checkbox" id='inpu' checked>
+
+    <!-- пометить div, чтобы показать здесь поле "name" -->
+    <div show-info="name"></div>
+    <!-- а здесь возраст "age" -->
+    <div show-info="age"></div>
+    <div data-info='Camel'></div>
+    <div data-info-base='Camel'></div>
+
+    <script>
+        
+        
+
+        console.log(document.body.children[6])
+        console.log(document.body.children[6].dataset.infoBase)
+
+        console.log(document.body.children[5])
+        console.log(document.body.children[5].dataset.info)
+        console.log(document.querySelector('[data-info]').dataset.info) //!!! запись в скобках!
+
+        let user = {
+            name: 'Jack',
+            age: 25
+        } 
+                                                                            // !Вывод свойств объекта на страницу
+        for (let div of document.querySelectorAll('[show-info]')){
+            let field = div.getAttribute('show-info');
+            div.innerHTML = user[field];
+        }
+
+        console.log(inpu.getAttribute('checked') )
+        console.log(inpu.checked)
+
+        let input = document.querySelector('input')
+        console.log(input)
+        input.setAttribute('id','id')
+        console.log(input)
+
+        input.id = 'newId';
+        console.log(input.getAttribute('id'))
+
+        console.log(document.body.children[0].setAttribute('type','123'))
+        console.log(document.body.children[0].hasAttribute('type'))
+        console.log(document.body.children[0].getAttribute('type'))
+        console.log(document.body.children[1].removeAttribute('id'))
+        console.log(document.body.children[0].attributes)
+
+        console.log(document.body.children[0].outerHTML)
+
+        for (let i of document.body.children[0].attributes){
+            console.log(`${i.name} = ${i.value}`)
+        }
+
+        console.log(document.body.children[0].className)
+
+        Element.prototype.sayHi = function(){
+            console.log(`Hello I'm ${this.tagName}`)
+        }
+        document.documentElement.sayHi()
+        document.body.sayHi()
+        document.body.children[2].sayHi()
+        let test = document.querySelectorAll('.test')
+        console.log(test)
+
+        document.body.myData = {
+            name: 'Caesar',
+            Surename: 'Imperator'
+        }
+        console.log(document.body.myData)
+
+        document.body.sayTagName = function(){
+            console.log(this.tagName)
+        }
+        document.body.sayTagName()
+    </script>
+
+</body>
+</html>

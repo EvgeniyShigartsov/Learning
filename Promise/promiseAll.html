@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                font-family: 'Ubuntu', sans-serif;
+            }
+            h1 {
+                text-align: center;
+            }
+            ul li {
+                margin-bottom: 20px;
+            }
+            ul div {
+                margin-bottom: 15px;
+            }
+            ul li div {
+                margin-top: 10px;
+                line-height: 20px;
+            }
+            ol {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="loading">Loading...</h1>
+        <ul class="list"></ul>
+
+        <script>
+            const list = document.querySelector('.list')
+            const loading = document.querySelector('.loading')
+
+            const showMovies = async (parentElem, elToRemove) => {
+                const movies = await getMovies()
+
+                movies.forEach((movie) => {
+                    parentElem.insertAdjacentHTML(
+                        'beforeend',
+                        `<li>
+                        Movie name: <b>${movie.title}</b>,
+                        episode: <b>${movie.episode_id}</b>,
+                        description: <div>${movie.opening_crawl}</div>
+                        <div><b>Characters: </b> ${getStringCharactersList(movie.characters)}</div>
+                    </li>`
+                    )
+                })
+                elToRemove.remove()
+            }
+            showMovies(list, loading)
+
+            function getStringCharactersList(characters) {
+                const list = characters.map(({ name }) => `<li>${name}</li>`).join('')
+                return `<ol>${list}</ol>`
+            }
+
+            async function getMovies() {
+                const movies = []
+                const data = await fetch('https://swapi.dev/api/films/')
+                    .then((r) => r.json())
+                    .then((d) => d.results)
+
+                for (let movie of data) {
+                    const mov = await getMovieWithCharacters(movie)
+                    movies.push(mov)
+                }
+                return movies
+            }
+
+            async function getMovieWithCharacters(movie) {
+                const { characters: urls } = movie
+                const characters = []
+                for (let url of urls) {
+                    const data = await fetch(url)
+                        .then((r) => r.json())
+                        .then((d) => d)
+                    characters.push(data)
+                }
+                return {
+                    ...movie,
+                    characters,
+                }
+            }
+
+            // function showMovieInfo() {
+            //     const response = fetch('https://swapi.dev/api/films/')
+            //         .then((response) => response.json())
+            //         .then(({ results }) => {
+            //             results.forEach((item) => {
+            //                 addMovieInfo(list, item)
+            //                 addCharartersList(list, item)
+            //             })
+            //         })
+            // }
+            // showMovieInfo()
+
+            // function addCharartersList(parentElem, { characters: charactersURLs }) {
+            //     parentElem.insertAdjacentHTML('beforeend', '<div><b>Characters: </b></div>')
+
+            //     const ol = document.createElement('ol')
+            //     const characters = charactersURLs.map((item) => {
+            //         return fetch(`${item}`)
+            //             .then((response) => response.json())
+            //             .then((data) => data)
+            //     })
+            //     Promise.all(characters).then((values) => {
+            //         values.forEach((data) => {
+            //             ol.insertAdjacentHTML('beforeend', `<li>${data.name}</li>`)
+            //         })
+            //     })
+            //     parentElem.appendChild(ol)
+            // }
+
+            // function addMovieInfo(parentElem, obj) {
+            //     parentElem.insertAdjacentHTML(
+            //         'beforeend',
+            //         `<li>
+            //             Movie name: <b>${obj.title}</b>,
+            //             episode: <b>${obj.episode_id}</b>,
+            //             description: <div>${obj.opening_crawl}</div>
+            //         </li>`
+            //     )
+            // }
+        </script>
+    </body>
+</html>

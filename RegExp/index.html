@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        div {
+            border: 1px solid tomato;
+        }
+        span.warn {
+            color: red;
+        }
+        span.ok {
+            color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <input type="text" pattern="[a-zA-Zа-яА-Я]g" title="input data is not valid.">
+    </div>
+    <script>
+
+        const string1 = '1abc Hi, do you know your abcs'
+        const string2 = 'The latest airplane designs evolved from slabcraft.'
+        const string3 = 'avsc'
+
+        console.log(string1.search(/v\.c $ /))
+        // const test = new RegExp (
+            // /^[a-zA-Z@~`!@#$%^&*()_=+\\\\';:\"\\/?>.<,-]+$/i
+        // )
+    </script>
+</body>
+</html>

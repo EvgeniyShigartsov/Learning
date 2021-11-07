@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // const promise = new Promise(function (resolve, reject) {
+            //     // resolve(123)
+            //     new Error('Errore')
+            //     // reject(new Error('dadada'))
+            //     // setTimeout(() => resolve('Whoops!'), 2000)
+            //     setTimeout(() => reject(new Error('Errore')), 1000)
+            // })
+            // promise.finally(() => console.log('done'))
+            // console.log(promise.then((result) => console.log(result)))
+            // promise.catch((err) => alert(err))
+            // promise.then((result) => console.log(result))
+            // promise.then(
+            // console.log
+            // (error) => console.log(error),
+            // (result) => console.log(result)
+            // )
+            // promise.catch(console.log)
+            // console.log(promise)
+            // function loadScript(src, callback) {
+            //     const script = document.createElement('script')
+            //     script.src = src
+
+            //     script.onload = () => callback(null, script)
+            //     script.onerror = () => callback(new Error(`Ошибка загрузки скрипта ${src}`))
+            //     document.head.append(script)
+            // }
+
+            function loadScript(src) {
+                return new Promise(function (resolve, reject) {
+                    const script = document.createElement('script')
+                    script.src = src
+
+                    script.onload = () => resolve(script)
+                    script.onerror = () => reject(new Error(`Ошибка загрузки скрипта ${src}`))
+                    document.head.append(script)
+                })
+            }
+            const promise = loadScript('https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js', () => console.log('Hello'))
+            promise.then(
+                (script) => console.log(`${script.src} загружен`),
+                (error) => console.log(`Ошибка ${error.message}`)
+            )
+
+            // const loadImage = (url) => {
+            //     return new Promise(function (resolve, reject) {
+            //         const request = new XMLHttpRequest()
+            //         request.open('GET', url)
+
+            //         request.onload = function () {
+            //             if (request.status === 200) {
+            //                 resolve(request.response)
+            //             } else {
+            //                 reject(Error(`Произошла ошибка, код ошибки: ${request.statusText}`))
+            //             }
+            //         }
+            //         request.send()
+            //     })
+            // }
+            // const embedImage = (url) => {
+            //     loadImage(url).then(
+            //         function (result) {
+            //             const img = new Image()
+            //             const imageURL = window.createObjectURL(result)
+            //             img.src = imageURL
+            //             document.body.append(img)
+            //         },
+            //         function (err) {
+            //             console.log(err)
+            //         }
+            //     )
+            // }
+            // console.log(embedImage())
+        </script>
+    </body>
+</html>

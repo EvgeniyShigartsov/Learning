@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const litmir = [
+                { author: 'Хэленка', title: 'Улетела сказка' },
+                { author: 'Коул Кресли', title: 'Восстание Аркан' },
+                { author: 'Райчел Мид', title: 'Золотая лилия' },
+            ]
+            console.log([...litmir])
+            function sort(a, b) {
+                if (a === 'fiat') return 1
+
+                if (a > b) {
+                    return 1
+                }
+                if (a < b) {
+                    return -1
+                }
+                return -1
+            }
+            // litmir.sort(sort)
+            // console.log(litmir)
+            const arr = ["crypto", "crypto", "fiat", "token", "fiat", "crypto", "token", "crypto", "crypto", "fiat", "token"]
+            console.log([...arr])
+
+            arr.sort(sort)
+            console.log(arr)
+        </script>
+    </body>
+</html>

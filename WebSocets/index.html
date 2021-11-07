@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      text-align: center;
+      font-family: Roboto, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Hello world</h1>
+    <input id="input" type="text">
+    <button id="btn">Send Data</button>
+  </div>
+  
+  <script>
+    const input = document.querySelector('#input')
+    const btn = document.querySelector('#btn')
+
+    const socket = new WebSocket('wss://javascript.info/article/websocket/demo/hello')
+    console.log(socket)
+
+    const clickHandler = (e, inp) => {
+      socket.send(inp.value)
+    }
+
+    btn.addEventListener('click', (e) => clickHandler(e, input))
+    
+    socket.addEventListener('open', (e) => {
+      console.log(e)
+      console.log('Connected')
+    })
+
+    socket.addEventListener('message', (e) => {
+      console.log(e)
+      console.log(e.data)
+    })
+    
+    socket.addEventListener('close', (e) => {
+      console.log(e)
+      console.log(socket)
+      if (e.wasClean){
+        console.log(`Channel has been closed succesfully, reason: ${e.reason}`)
+      } else {
+        console.log(`Channel has been closed with troubles.`)
+      }
+    })
+    
+    socket.addEventListener('error', () => {
+      throw new Error('Connection Failed!')
+    })
+
+  </script>
+</body>
+</html>

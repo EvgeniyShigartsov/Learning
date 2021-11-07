@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            class Person {
+                constructor(name, surename) {
+                    this.name = name;
+                    this.surename = surename;
+                }
+                getFullName() {
+                    return this.name + ' ' + this.surename;
+                }
+            }
+            const person = new Person('John', 'Connor');
+            console.log(person.getFullName());
+
+            class User extends Person {
+                constructor(name, surename, email, password) {
+                    super(name, surename);
+                    this.email = email;
+                    this.password = password;
+                }
+                getEmail() {
+                    return this.email;
+                }
+                getPassword() {
+                    return this.password;
+                }
+            }
+            const user = new User('John', 'Doe', 'example@gmail.com', 'N-word');
+            console.log(user.getPassword());
+            console.log(user.getEmail());
+
+            function App() {
+                let user = new User('Elon', 'Musk', 'musk@gmail.com', 'muskMars');
+            }
+            App();
+            Array.prototype.partition = function (pred) {
+                const passed = [];
+                const failed = [];
+
+                for (let i = 0; i < this.length; i++) {
+                    if (pred(this[i])) {
+                        passed.push(this[i]);
+                    } else {
+                        failed.push(this[i]);
+                    }
+                }
+                return [passed, failed];
+            };
+            console.log(
+                [1, 2, 3, 4, 5, null, 'str', undefined, Object, true, false].partition((e) => {
+                    return e <= 4;
+                })
+            );
+            function Person(name, surename) {
+                this.name = name;
+                this.surename = surename;
+            }
+            Person.prototype.getFullName = function () {
+                return this.name + ' ' + this.surename;
+            };
+            const person = new Person('John', 'Connor');
+
+            // ///////////////
+
+            function User(name, surename, email, password) {
+                Person.call(this, name, surename);
+                this.email = email;
+                this.password = password;
+            }
+            User.prototype = Object.create(Person.prototype);
+
+            User.prototype.setEmail = function (email) {
+                this.email = email;
+            };
+            User.prototype.getEmail = function () {
+                return this.email;
+            };
+            const user = new User('Elon', 'Musk', 'musk@gmail.com', 'maskMars');
+
+            user.setEmail('changed@gmail.com');
+            User.prototype.getFullName = function () {
+                return `User name: ${this.name} ${this.surename}`;
+            };
+            Person.prototype.setGender = function (gender) {
+                this.gender = gender;
+            };
+            Person.prototype.getGender = function () {
+                return this.gender;
+            };
+            person.setGender('male');
+            user.setGender('male');
+            console.log(person.getGender());
+            console.log(user.getGender());
+
+            function Maybe({ data, status }) {
+                this.data = data;
+                this.status = status;
+            }
+            Maybe.prototype.apply = function (f) {
+                if (this.status) {
+                    return new Maybe({ data: f(this.data), status: this.status });
+                }
+                return new Maybe({ data: this.data, status: this.status });
+            };
+
+            Maybe.prototype.getOrElse = function (msg) {
+                if (this.status) return this.data;
+                return msg;
+            };
+            function Number(data) {
+                let status = typeof data === 'number';
+                Maybe.call(this, { data, status });
+            }
+            Number.prototype = Object.create(Maybe.prototype);
+
+            function String(data) {
+                let status = typeof data === 'string';
+                Maybe.call(this, { data, status });
+            }
+            String.prototype = Object.create(Maybe.prototype);
+
+            const increment = (num) => num + 1;
+            const split = (str) => str.split('');
+
+            let numValid = new Number(12);
+            let numInvalid = new Number('foo');
+            let strValid = new String('hello world');
+            let strInvalid = new String(-1);
+
+            let a = numValid.apply(increment).getOrElse('TypeError!');
+            let b = numInvalid.apply(increment).getOrElse('TypeError Oh no!');
+            let c = strValid.apply(split).getOrElse('TypeError!');
+            let d = strInvalid.apply(split).getOrElse('TypeError :(');
+            console.log({ a, b, c, d });
+
+            const Person = {
+                name: 'name',
+                surename: 'surename',
+                getFullName: function () {
+                    return `${this.name} ${this.surename}`;
+                },
+            };
+            const person = Object.create(Person);
+            person.name = 'Elon';
+            person.surename = 'Musk';
+
+            const User = Object.create(Person);
+            User.email = '';
+            User.password = '';
+            User.getEmail = function () {
+                return this.email;
+            };
+            const user = Object.create(User);
+            user.name = 'Jack';
+            user.surename = 'Sparrow';
+            user.email = 'example@gmail.com';
+            user.password = 'I have a map';
+
+            const Customer = {
+                plan: 'trial',
+            };
+            Customer.setPremium = function () {
+                this.plan = 'premium';
+            };
+            User.customer = Customer;
+            console.log(user.customer.plan);
+            user.customer.setPremium();
+            console.log(user.customer.plan);
+            console.log(user);
+            console.log(User);
+        </script>
+    </body>
+</html>

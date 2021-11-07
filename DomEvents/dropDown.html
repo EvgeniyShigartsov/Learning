@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* .hidden{
+            display: none;
+        } */
+    </style>
+</head>
+<body>
+    <button id='btn'><span>></span>Click me!</button>
+    <ul id='ul' class='hide' hidden>
+        <li>Cake</li>
+        <li>Donut</li>
+        <li>Honey</li>
+    </ul>
+
+    <script>
+
+        let btn = document.querySelector('#btn');
+        let ul = document.querySelector('#ul')
+        // let click = true;
+        // document.querySelector('#list').style.display = 'none';
+        
+        // btn.addEventListener('click', function(){
+        //     if(click){
+        //         document.querySelector('#list').style.display = 'block';
+        //         click = false;
+        //     }
+        //     else {
+        //         document.querySelector('#list').style.display = 'none';
+        //         click = true;
+                
+        //     }
+        // })
+        
+        // btn.addEventListener('click', () => {
+        //     ul.classList.toggle('hidden');
+
+        //     btn.children[0].innerHTML = ul.classList.contains('hidden') ? '>': '^'
+        // })
+        
+        btn.addEventListener('click', () =>{
+            ul.hidden = !ul.hidden;
+            btn.children[0].innerHTML = ul.hidden ? '>' : '^'
+        })
+        
+
+    
+    </script>
+
+</body>
+</html>

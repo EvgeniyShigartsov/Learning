@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" id="hider" value="Click to hide the text"/>
+    <div id="text">Text</div>
+    <script>
+
+        let button = document.querySelector('#hider');
+        let div = document.querySelector('#text');
+        let isFirstClick = true;
+
+        button.addEventListener('click', function(){
+            if(isFirstClick){
+                div.remove();
+                isFirstClick = false;
+            } else {
+                button.remove();
+            }
+        });
+
+    </script>
+
+</body>
+</html>

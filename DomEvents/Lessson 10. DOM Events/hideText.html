@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>▼ DELETE</button>
+    <div>TEXT</div>
+
+    <script>
+        const btn = document.querySelector('button');
+        const div = document.querySelector('div');
+        let isFirstClick = true;
+
+        btn.addEventListener('click', function () {
+            if (isFirstClick) {
+                div.remove();
+                isFirstClick = false;
+            } else {
+                btn.remove()
+            }
+        });
+    </script>
+
+</body>
+
+</html>

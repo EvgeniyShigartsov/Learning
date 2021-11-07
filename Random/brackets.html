@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const checkBrackets = (str) => {
+                const stack = []
+                const pairs = {
+                    '(': ')',
+                    '{': '}',
+                    '[': ']',
+                }
+
+                for (let i = 0; i < str.length; i++) {
+                    const bracket = str[i]
+
+                    if (bracket === '(' || bracket === '{' || bracket === '[') stack.push(bracket)
+                    else {
+                        const lastEl = stack.pop()
+                        if (bracket !== pairs[lastEl]) return false
+                    }
+                }
+                console.log(stack)
+                return stack.length === 0
+            }
+            console.log(checkBrackets('(){}[]'))
+            console.log(checkBrackets('(({[()]})){}[]'))
+        </script>
+    </body>
+</html>

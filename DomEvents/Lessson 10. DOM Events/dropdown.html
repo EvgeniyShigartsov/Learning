@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div><span>⮚</span> Sweeties (click me)</div>
+    <ul hidden>
+        <li>Cake</li>
+        <li>Donat</li>
+        <li>Honey</li>
+    </ul>
+
+    <script>
+        const div = document.querySelector('div');
+        const ul = document.querySelector('ul');
+
+        div.addEventListener('click', () => {
+            ul.hidden = !ul.hidden;
+            div.children[0].innerHTML = ul.hidden ? '⮚' : '⮛'
+        });
+    </script>
+
+</body>
+
+</html>

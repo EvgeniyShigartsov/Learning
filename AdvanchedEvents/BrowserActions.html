@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- <a href="/" onclick="return false">Нажми здесь</a> -->
+    <!-- <a href="/" onclick="event.preventDefault()">здесь</a> -->
+
+    <ul id="menu" class="menu">
+        <li><a href="/html">HTML</a></li>
+        <li><a href="/javascript">JavaScript</a></li>
+        <li><a href="www.google.com.ua">CSS</a></li>
+        <li><input type="text"></li>
+        
+    </ul>
+    <input value="focus is on" onfocus="this.value=''">
+    <input onmousedown="return false" onfocus="this.value='' " value="Click me">
+
+    <button>Правый клик здесь вызывает контекстное меню документа</button>
+    
+    <button id='btn'>
+        Правый клик вызывает наше контекстное меню
+    </button>
+
+
+    <script>
+
+        btn.addEventListener('contextmenu', function(event){
+            event.preventDefault();
+            alert('Context menu of this button')
+        })
+
+        let doc = document 
+        doc.addEventListener('contextmenu', function(event){
+            if (event.defaultPrevented) return;
+            event.preventDefault();
+            alert('Document context menu')
+        })
+
+        // document.querySelector('#btn').addEventListener('contextmenu', function(event){alert('Our Menu')})
+
+        menu.onclick = function(event){
+            if (event.target.nodeName != 'A') {
+                console.log(event.target.nodeName)
+                return 
+            }
+            let href = event.target.getAttribute('href')
+            console.log(href)
+            return false;
+        }
+
+    </script>
+
+</body>
+</html>

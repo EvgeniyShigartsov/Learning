@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // Необходимо вывести в console.log по одному значению туда и обратно
+            // с помощью цикла for:
+            // 10, 20, 30, 40, 50, 40, 30, 20, 10
+            // Создавать дополнительные переменные, функции, if/else или циклы запрещено.
+
+            const arr = [10, 20, 30, 40, 50] // 6 , 7 , 8 , 9
+
+            for (let i = 0; i < arr.length + 4; i++) {
+                console.log(arr[i] || arr[i - 2 * (i - arr.length + 1)])
+                //                                   5 6 7 8  I have
+                //                                   3 2 1 0  I need
+                //                                   2 4 6 8  diff: have - need
+            }
+        </script>
+    </body>
+</html>
