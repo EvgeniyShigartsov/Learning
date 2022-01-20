@@ -13,11 +13,30 @@
                 return inc.counter++
             }
 
-            console.log(inc())
-            console.log(inc())
-            console.log(inc())
-            console.log(inc())
-            console.log(inc.counter)
+            // console.log(inc())
+            // console.log(inc())
+            // console.log(inc())
+            // console.log(inc())
+            // console.log(inc.counter)
+            const status1 = 'const status'
+            var status2 = 'var status'
+
+            setTimeout(() => {
+                const data = {
+                    status1: 'obj status1',
+                    status2: 'obj status2',
+                    getStatus1(){
+                        return this.status1
+                    },
+                    getStatus2(){
+                        return this.status2
+                    }
+                }
+                console.log(data.getStatus1.call(this))
+                console.log(data.getStatus2.call(this))
+
+            },0)
+
         </script>
     </body>
 </html>
