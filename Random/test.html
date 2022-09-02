@@ -1,42 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <script>
-            function inc() {
-                inc.counter = inc.counter || 1
-                return inc.counter++
-            }
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function longestConsec(strarr, k) {
+        if (k <= 0 || k > strarr.length) return ''
 
-            // console.log(inc())
-            // console.log(inc())
-            // console.log(inc())
-            // console.log(inc())
-            // console.log(inc.counter)
-            const status1 = 'const status'
-            var status2 = 'var status'
+        let resultStr = ''
 
-            setTimeout(() => {
-                const data = {
-                    status1: 'obj status1',
-                    status2: 'obj status2',
-                    getStatus1(){
-                        return this.status1
-                    },
-                    getStatus2(){
-                        return this.status2
-                    }
-                }
-                console.log(data.getStatus1.call(this))
-                console.log(data.getStatus2.call(this))
+        for (let i = 0; i < strarr.length; i++) {
+          let currentStr = ''
+          for (let j = 0; j < k; j++) {
+            currentStr += strarr[i + j] || ''
+          }
 
-            },0)
+          if (currentStr.length > resultStr.length) {
+            resultStr = currentStr
+          }
+        }
 
-        </script>
-    </body>
+        return resultStr
+      }
+
+      console.log(longestConsec(['it', 'wkppv', 'ixoyx', '3452', 'zzzzzzzzzzzz'], 3))
+    </script>
+  </body>
 </html>

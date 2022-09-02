@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const RomanNumerals = {
+        romanRepresentationOld: {
+          I: 1,
+          V: 5,
+          X: 10,
+          L: 50,
+          C: 100,
+          D: 500,
+          M: 1000,
+        },
+        romanRepresentation: {
+          oneThousand: {
+            symbol: 'M',
+            count: Math.floor(number / 1000),
+            sequenceNumber: 1,
+          },
+          halfThousand: {
+            symbol: 'D',
+            count: Math.floor((number % 1000) / 500),
+            sequenceNumber: 2,
+          },
+          oneHundred: {
+            symbol: 'C',
+            count: Math.floor((number % 500) / 100),
+            sequenceNumber: 3,
+          },
+          fifty: {
+            symbol: 'L',
+            count: Math.floor((number % 100) / 50),
+            sequenceNumber: 4,
+          },
+          ten: {
+            symbol: 'X',
+            count: Math.floor((number % 50) / 10),
+            sequenceNumber: 5,
+          },
+          five: {
+            symbol: 'V',
+            count: Math.floor((number % 10) / 5),
+            sequenceNumber: 6,
+          },
+          one: {
+            symbol: 'I',
+            count: number % 5,
+            sequenceNumber: 7,
+          },
+        },
+
+        fromRoman(romanNumber) {
+          const symbols = romanNumber.split('')
+          let result = 0
+
+          for (let i = 0; i < symbols.length; i++) {
+            const currentSymbol = symbols[i]
+            const currentValue = this.romanRepresentationOld[currentSymbol]
+
+            const nextSymbol = symbols[i + 1]
+            const nextValue = this.romanRepresentationOld[nextSymbol]
+
+            if (currentValue === this.romanRepresentationOld.I && currentValue !== nextValue && nextValue) {
+              result = result - currentValue
+              continue
+            }
+            result += currentValue
+          }
+          return result
+        },
+        toRoman(number) {
+          values = {
+            oneThousand: {
+              symbol: 'M',
+              count: Math.floor(number / 1000),
+              sequenceNumber: 1,
+            },
+            halfThousand: {
+              symbol: 'D',
+              count: Math.floor((number % 1000) / 500),
+              sequenceNumber: 2,
+            },
+            oneHundred: {
+              symbol: 'C',
+              count: Math.floor((number % 500) / 100),
+              sequenceNumber: 3,
+            },
+            fifty: {
+              symbol: 'L',
+              count: Math.floor((number % 100) / 50),
+              sequenceNumber: 4,
+            },
+            ten: {
+              symbol: 'X',
+              count: Math.floor((number % 50) / 10),
+              sequenceNumber: 5,
+            },
+            five: {
+              symbol: 'V',
+              count: Math.floor((number % 10) / 5),
+              sequenceNumber: 6,
+            },
+            one: {
+              symbol: 'I',
+              count: number % 5,
+              sequenceNumber: 7,
+            },
+          }
+        },
+      }
+
+      // console.log(RomanNumerals.toRoman(1000), 'M')
+      // console.log(RomanNumerals.toRoman(4), 'IV')
+      // console.log(RomanNumerals.toRoman(1), 'I')
+      console.log(RomanNumerals.toRoman(1990), 'MCMXC')
+      // console.log(RomanNumerals.toRoman(2008), 'MMVIII')
+
+      // console.log(RomanNumerals.fromRoman('XXI'), 21)
+      // console.log(RomanNumerals.fromRoman('I'), 1)
+      // console.log(RomanNumerals.fromRoman('IV'), 4)
+      // console.log(RomanNumerals.fromRoman('MMVIII'), 2008)
+      // console.log(RomanNumerals.fromRoman('MDCLXVI'), 1666)
+    </script>
+  </body>
+</html>
