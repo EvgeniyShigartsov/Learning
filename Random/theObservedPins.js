@@ -84,18 +84,20 @@ const matrix = [
   [undefined, '0', undefined],
 ]
 
-const getPossibleNumbers = (observed) => {
-  const shifts = [
-    [0, -1],
-    [-1, 0],
-    [1, 0],
-    [0, 1],
-  ]
-  const possibeNumbers = []
+const shifts = [
+  [0, -1],
+  [-1, 0],
+  [1, 0],
+  [0, 1],
+]
+
+const getPINs = (observed) => {
+  const possiblePins = [observed]
+  const possibleNumsTmp = []
 
   for (let i = 0; i < observed.length; i++) {
     const currentNum = observed[i]
-    possibeNumbers.push(currentNum)
+    possibleNumsTmp.push(currentNum)
 
     for (let y = 0; y < matrix.length; y++) {
       for (let x = 0; x < matrix[y].length; x++) {
@@ -108,32 +110,22 @@ const getPossibleNumbers = (observed) => {
             if (shiftedY) {
               const shiftedNum = shiftedY[x - shift[0]]
               if (shiftedNum) {
-                possibeNumbers.push(shiftedNum)
+                possibleNumsTmp.push(shiftedNum)
               }
             }
           })
         }
       }
     }
+    console.log(possibleNumsTmp)
+    possibleNumsTmp.length = 0
   }
-  return [...new Set(possibeNumbers)].sort()
+  return possiblePins.sort()
 }
 
-const getPINs = (observed) => {
-  const possibeNumbers = getPossibleNumbers(observed)
-  if (observed.length === 1) return possibeNumbers
-
-  const pins = []
-
-  for (let i = 0; i < possibeNumbers.length; i++) {
-    for (let j = 0; j < possibeNumbers.length; j++) {
-      pins.push(possibeNumbers[i] + possibeNumbers[j])
-    }
-  }
-
-  return possibeNumbers
+String.prototype.replaceAt = function (index, replacement) {
+  return this.substring(0, index) + replacement + this.substring(index + replacement.length)
 }
 
-// console.log(getPINs('11'), expectations[11].sort())
 console.log(getPINs('369'))
 console.log(expectations[369].sort())
