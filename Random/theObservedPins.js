@@ -135,11 +135,17 @@ const calculatePINsVariations = (shiftedMatrix, currentPin, currentIndex = 0) =>
   }
 
   for (let i = 0; i < shiftedMatrix.length; i++) {
+    if (i < currentIndex) {
+      continue
+    }
+
     const currentNumbers = shiftedMatrix[i]
     currentNumbers.forEach((currentNumber) => {
       const pin = currentPin.replaceAt(i, currentNumber)
+      if (!results.includes(pin)) {
+        results.push(...calculatePINsVariations(shiftedMatrix, pin, currentIndex + 1))
+      }
       results.push(pin)
-      results.push(...calculatePINsVariations(shiftedMatrix, pin, currentIndex + 1))
     })
   }
 
@@ -159,11 +165,9 @@ const getPINs = (observed) => {
   return [...new Set(possiblePins)].sort()
 }
 
-// console.log(getPINs('369'))
-// console.log(expectations[369].sort())
-
 // console.log(getPINs('11'))
-// console.log(expectations[11].sort())
+// console.log(getPINs('369'))
+// console.log(getPINs('000000'))
 
 // console.log(getPINs('8').sort().toString() === expectations[8].sort().toString())
 // console.log(getPINs('11').sort().toString() === expectations[11].sort().toString())
