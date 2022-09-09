@@ -22,6 +22,10 @@
 
 // Can you help us to find all those variations? It would be nice to have a function, that returns an array of all variations for an observed PIN with a length of 1 to 8 digits. We could name the function getPINs. But please note that all PINs, the observed one and also the results, must be strings, because of potentially leading '0's. We already prepared some test cases for you.
 
+String.prototype.replaceAt = function (index, replacement) {
+  return this.substring(0, index) + replacement + this.substring(index + replacement.length)
+}
+
 const cases = [
   '339',
   '366',
@@ -91,13 +95,13 @@ const shifts = [
   [0, 1],
 ]
 
-const getPINs = (observed) => {
-  const possiblePins = [observed]
-  const possibleNumsTmp = []
+const getShiftedNumbersMatrix = (observed) => {
+  const shiftedNumbers = []
+  const shiftedNumbersMatrix = []
 
   for (let i = 0; i < observed.length; i++) {
     const currentNum = observed[i]
-    possibleNumsTmp.push(currentNum)
+    shiftedNumbers.push(currentNum)
 
     for (let y = 0; y < matrix.length; y++) {
       for (let x = 0; x < matrix[y].length; x++) {
@@ -110,22 +114,57 @@ const getPINs = (observed) => {
             if (shiftedY) {
               const shiftedNum = shiftedY[x - shift[0]]
               if (shiftedNum) {
-                possibleNumsTmp.push(shiftedNum)
+                shiftedNumbers.push(shiftedNum)
               }
             }
           })
         }
       }
     }
-    console.log(possibleNumsTmp)
-    possibleNumsTmp.length = 0
+    shiftedNumbersMatrix.push([...shiftedNumbers])
+    shiftedNumbers.length = 0
   }
-  return possiblePins.sort()
+  return shiftedNumbersMatrix
 }
 
-String.prototype.replaceAt = function (index, replacement) {
-  return this.substring(0, index) + replacement + this.substring(index + replacement.length)
+const calculatePINsVariations = (shiftedMatrix, currentPin, currentIndex = 0) => {
+  const results = []
+
+  if (currentIndex === shiftedMatrix.length) {
+    return results
+  }
+
+  for (let i = 0; i < shiftedMatrix.length; i++) {
+    const currentNumbers = shiftedMatrix[i]
+    currentNumbers.forEach((currentNumber) => {
+      const pin = currentPin.replaceAt(i, currentNumber)
+      results.push(pin)
+      results.push(...calculatePINsVariations(shiftedMatrix, pin, currentIndex + 1))
+    })
+  }
+
+  return results
 }
 
-console.log(getPINs('369'))
-console.log(expectations[369].sort())
+const getPINs = (observed) => {
+  const possiblePins = []
+  const shiftedNumbersMatrix = getShiftedNumbersMatrix(observed)
+
+  if (observed.length === 1) {
+    possiblePins.push(...shiftedNumbersMatrix[0])
+  } else {
+    possiblePins.push(...calculatePINsVariations(shiftedNumbersMatrix, observed))
+  }
+
+  return [...new Set(possiblePins)].sort()
+}
+
+// console.log(getPINs('369'))
+// console.log(expectations[369].sort())
+
+// console.log(getPINs('11'))
+// console.log(expectations[11].sort())
+
+// console.log(getPINs('8').sort().toString() === expectations[8].sort().toString())
+// console.log(getPINs('11').sort().toString() === expectations[11].sort().toString())
+// console.log(getPINs('369').sort().toString() === expectations[369].sort().toString())
