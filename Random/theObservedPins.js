@@ -22,53 +22,52 @@
 
 // Can you help us to find all those variations? It would be nice to have a function, that returns an array of all variations for an observed PIN with a length of 1 to 8 digits. We could name the function getPINs. But please note that all PINs, the observed one and also the results, must be strings, because of potentially leading '0's. We already prepared some test cases for you.
 
+// Just helper to easier manage strings
 String.prototype.replaceAt = function (index, replacement) {
   return this.substring(0, index) + replacement + this.substring(index + replacement.length)
 }
 
-const cases = [
-  '339',
-  '366',
-  '399',
-  '658',
-  '636',
-  '258',
-  '268',
-  '669',
-  '668',
-  '266',
-  '369',
-  '398',
-  '256',
-  '296',
-  '259',
-  '368',
-  '638',
-  '396',
-  '238',
-  '356',
-  '659',
-  '639',
-  '666',
-  '359',
-  '336',
-  '299',
-  '338',
-  '696',
-  '269',
-  '358',
-  '656',
-  '698',
-  '699',
-  '298',
-  '236',
-  '239',
-]
-
 const expectations = {
   8: ['5', '7', '8', '9', '0'],
   11: ['11', '22', '44', '12', '21', '14', '41', '24', '42'],
-  369: cases,
+  369: [
+    '339',
+    '366',
+    '399',
+    '658',
+    '636',
+    '258',
+    '268',
+    '669',
+    '668',
+    '266',
+    '369',
+    '398',
+    '256',
+    '296',
+    '259',
+    '368',
+    '638',
+    '396',
+    '238',
+    '356',
+    '659',
+    '639',
+    '666',
+    '359',
+    '336',
+    '299',
+    '338',
+    '696',
+    '269',
+    '358',
+    '656',
+    '698',
+    '699',
+    '298',
+    '236',
+    '239',
+  ],
 }
 
 // ┌───┬───┬───┐
@@ -81,48 +80,45 @@ const expectations = {
 //     │ 0 │
 //     └───┘
 
-const matrix = [
+const keypadMatrix = [
   ['1', '2', '3'],
   ['4', '5', '6'],
   ['7', '8', '9'],
   [undefined, '0', undefined],
 ]
 
-const shifts = [
+// Horizontal (x) & vertical (y) keypad shifts
+const keypadShifts = [
   [0, -1],
   [-1, 0],
   [1, 0],
   [0, 1],
 ]
 
+// Get matrix with all possible numbers for each observed character
 const getShiftedNumbersMatrix = (observed) => {
-  const shiftedNumbers = []
   const shiftedNumbersMatrix = []
 
   for (let i = 0; i < observed.length; i++) {
     const currentNum = observed[i]
-    shiftedNumbers.push(currentNum)
+    const currentNumberVariations = []
 
-    for (let y = 0; y < matrix.length; y++) {
-      for (let x = 0; x < matrix[y].length; x++) {
-        const isCurrentNum = matrix[y][x] === currentNum
+    currentNumberVariations.push(currentNum)
+
+    for (let y = 0; y < keypadMatrix.length; y++) {
+      for (let x = 0; x < keypadMatrix[y].length; x++) {
+        const isCurrentNum = keypadMatrix[y][x] === currentNum
 
         if (isCurrentNum) {
-          shifts.forEach((shift) => {
-            const shiftedY = matrix[y - shift[1]]
-
-            if (shiftedY) {
-              const shiftedNum = shiftedY[x - shift[0]]
-              if (shiftedNum) {
-                shiftedNumbers.push(shiftedNum)
-              }
+          keypadShifts.forEach(([shiftX, shiftY]) => {
+            if (keypadMatrix[y - shiftY] && keypadMatrix[y - shiftY][x - shiftX]) {
+              currentNumberVariations.push(keypadMatrix[y - shiftY][x - shiftX])
             }
           })
         }
       }
     }
-    shiftedNumbersMatrix.push([...shiftedNumbers])
-    shiftedNumbers.length = 0
+    shiftedNumbersMatrix.push(currentNumberVariations)
   }
   return shiftedNumbersMatrix
 }
@@ -130,19 +126,26 @@ const getShiftedNumbersMatrix = (observed) => {
 const calculatePINsVariations = (shiftedMatrix, currentPin, currentIndex = 0) => {
   const results = []
 
+  // Recursion out condition
+  // When it equals i.e. all possible pin variations were found, I can go out recursion.
   if (currentIndex === shiftedMatrix.length) {
     return results
   }
 
   for (let i = 0; i < shiftedMatrix.length; i++) {
     if (i < currentIndex) {
+      // Skip unnecessary iterations & recursions, i.e. I'm inside recursion, and
+      // handle previous variations in the previous recursion.
       continue
     }
-
     const currentNumbers = shiftedMatrix[i]
+
     currentNumbers.forEach((currentNumber) => {
       const pin = currentPin.replaceAt(i, currentNumber)
+
+      // Go into recursion only if i don't have this pin variation before
       if (!results.includes(pin)) {
+        // Increase currentIndex while currentIndex will not be equal to shiftedMatrix.length
         results.push(...calculatePINsVariations(shiftedMatrix, pin, currentIndex + 1))
       }
       results.push(pin)
@@ -162,6 +165,8 @@ const getPINs = (observed) => {
     possiblePins.push(...calculatePINsVariations(shiftedNumbersMatrix, observed))
   }
 
+  // Return only unique values. In some cases, like '11',
+  // different recursions may return same value at the start and end of recursion, like 22 or 44.
   return [...new Set(possiblePins)].sort()
 }
 
@@ -169,6 +174,6 @@ const getPINs = (observed) => {
 // console.log(getPINs('369'))
 // console.log(getPINs('000000'))
 
-// console.log(getPINs('8').sort().toString() === expectations[8].sort().toString())
-// console.log(getPINs('11').sort().toString() === expectations[11].sort().toString())
-// console.log(getPINs('369').sort().toString() === expectations[369].sort().toString())
+console.log(getPINs('8').sort().toString() === expectations[8].sort().toString())
+console.log(getPINs('11').sort().toString() === expectations[11].sort().toString())
+console.log(getPINs('369').sort().toString() === expectations[369].sort().toString())
