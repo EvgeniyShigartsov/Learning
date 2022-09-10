@@ -100,14 +100,14 @@ const getShiftedNumbersMatrix = (observed) => {
   const shiftedNumbersMatrix = []
 
   for (let i = 0; i < observed.length; i++) {
-    const currentNum = observed[i]
+    const currentNumber = observed[i]
     const currentNumberVariations = []
 
-    currentNumberVariations.push(currentNum)
+    currentNumberVariations.push(currentNumber)
 
     for (let y = 0; y < keypadMatrix.length; y++) {
       for (let x = 0; x < keypadMatrix[y].length; x++) {
-        const isCurrentNum = keypadMatrix[y][x] === currentNum
+        const isCurrentNum = keypadMatrix[y][x] === currentNumber
 
         if (isCurrentNum) {
           keypadShifts.forEach(([shiftX, shiftY]) => {
