@@ -1,2 +1,2 @@
-// import './theObservedPins.js'
-import './longestSlideDown.js'
+// import './longestSlideDown.js'
+import './removeZeros.js'
