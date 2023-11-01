@@ -1,4 +1,3 @@
 // import './longestSlideDown.js'
 // import './minimumWindowSubstring.js'
-// import './pointRenderer.js'
-import './carrying.js'
+import './divisibleByPrimeFactors.js'

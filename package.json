@@ -1,0 +1,27 @@
+{
+  "name": "learning",
+  "version": "1.0.0",
+  "description": "1. Screen Locking Patterns (3 lvl, codewars)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvgeniyShigartsov/Learning.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvgeniyShigartsov/Learning/issues"
+  },
+  "homepage": "https://github.com/EvgeniyShigartsov/Learning#readme",
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  }
+}
