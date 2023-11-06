@@ -1,3 +1,3 @@
 // import './longestSlideDown.js'
 // import './minimumWindowSubstring.js'
-import './divisibleByPrimeFactors.js'
+import './maxPremutations.js'

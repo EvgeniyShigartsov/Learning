@@ -21,6 +21,7 @@
         "max-len": ["error", { "code": 130 }],
         "import/extensions": "off",
         "no-console": "off",
-        "no-plusplus": "off"
+        "no-plusplus": "off",
+        "linebreak-style":"off"
     }
 }
