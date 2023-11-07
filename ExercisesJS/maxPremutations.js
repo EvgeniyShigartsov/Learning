@@ -47,9 +47,11 @@ const allPermuted = (l) => {
   return prevSum
 }
 
-// console.log(allPermuted(1n) === 0n)
-// console.log(allPermuted(3n), 2n)
-// console.log(allPermuted(4n), 9n)
+// function allPermuted2(n) { return n ? n * allPermuted(n - 1n) + (-1n) ** n : 1n; }
+
+console.log(allPermuted(1n) === 0n)
+console.log(allPermuted(3n), 2n)
+console.log(allPermuted(4n), 9n)
 console.log(allPermuted(5n), 44n)
 console.log(allPermuted(6n), 265n)
 console.log(allPermuted(10n), 1334961n)
