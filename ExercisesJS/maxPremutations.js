@@ -154,11 +154,10 @@ const allPermuted = (l) => {
 // console.log('End in: ', (Date.now() - start) / 1000)
 
 // console.log(allPermuted(1n) === 0n)
-console.log(allPermuted(3n), 2n)
+// console.log(allPermuted(3n), 2n)
 // console.log(allPermuted(4n), 9n)
-// console.log(allPermuted(5n), 44n)
+console.log(allPermuted(5n), 44n)
 // console.log(allPermuted(6n), 265n)
-// console.log(allPermuted(8n))
 // console.log(allPermuted(10n), 1334961n)
 // console.log(allPermuted(11n) === 14684570n)
 // console.log(allPermuted(12n) === 176214841n)
