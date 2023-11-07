@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-extend-native */
@@ -57,85 +58,104 @@ const digits = [
   [1, 2, 3, 4, 5],
 ]
 const schema = [
-  [2, 1, 4, 5, 3], // 2, 1
+  [2, 1, 4, 5, 3],
   [2, 1, 5, 3, 4],
-  [2, 3, 1, 5, 4], // 2, 3
+  [2, 3, 1, 5, 4],
   [2, 3, 4, 5, 1],
   [2, 3, 5, 1, 4],
-  [2, 4, 1, 5, 3], // 2, 4
+  [2, 4, 1, 5, 3],
   [2, 4, 5, 1, 3],
   [2, 4, 5, 3, 1],
-  [2, 5, 1, 3, 4], // 2, 5
+  [2, 5, 1, 3, 4],
   [2, 5, 4, 1, 3],
   [2, 5, 4, 3, 1], // ----11 in total----
 
-  [3, 1, 2, 5, 4], // 3, 1
+  [3, 1, 2, 5, 4],
   [3, 1, 4, 5, 2],
   [3, 1, 5, 2, 4],
-  [3, 4, 1, 5, 2], // 3, 4
+  [3, 4, 1, 5, 2],
   [3, 4, 2, 5, 1],
   [3, 4, 5, 2, 1],
   [3, 4, 5, 1, 2],
-  [3, 5, 1, 2, 4], // 3, 5
+  [3, 5, 1, 2, 4],
   [3, 5, 2, 1, 4],
   [3, 5, 4, 1, 2],
   [3, 5, 4, 2, 1], // ----11 in total----
 
-  [4, 1, 2, 5, 3], // 4, 1
+  [4, 1, 2, 5, 3],
   [4, 1, 5, 2, 3],
   [4, 1, 5, 3, 2],
-  [4, 3, 1, 5, 2], // 4, 3
+  [4, 3, 1, 5, 2],
   [4, 3, 2, 5, 1],
   [4, 3, 5, 1, 2],
   [4, 3, 5, 2, 1],
-  [4, 5, 1, 2, 3], // 4, 5
+  [4, 5, 1, 2, 3],
   [4, 5, 1, 3, 2],
   [4, 5, 2, 1, 3],
   [4, 5, 2, 3, 1], // ----11 in total----
 
-  [5, 1, 2, 3, 4], // 5, 1
+  [5, 1, 2, 3, 4],
   [5, 1, 4, 2, 3],
   [5, 1, 4, 3, 2],
-  [5, 3, 1, 2, 4], // 5, 3
+  [5, 3, 1, 2, 4],
   [5, 3, 2, 1, 4],
   [5, 3, 4, 1, 2],
   [5, 3, 4, 2, 1],
-  [5, 4, 1, 2, 3], // 5, 4
+  [5, 4, 1, 2, 3],
   [5, 4, 1, 3, 2],
   [5, 4, 2, 1, 3],
   [5, 4, 2, 3, 1], // 11 in total
 ]
 
 const allPermuted = (l) => {
-  const n = Number(l)
-  const sum = l
-
   if (l === 1n) return 0n
 
-  const DIGITS = Array.from({ length: n }, (_, i) => i + 1)
-
-  const combitations = []
+  const DIGITS = Array.from({ length: Number(l) }, (_, i) => i + 1)
+  const combinations = []
+  let sum = 0n
 
   const replaceDigits = (digitsStart, digitsLeft) => {
     for (let i = 0; i < digitsLeft.length; i++) {
       const currentDigit = digitsLeft[i]
       const combination = [...digitsStart, currentDigit]
 
-      replaceDigits(combination, removeDigitFromArray(currentDigit, digitsLeft))
+      if (currentDigit === DIGITS[combination.length - 1]) { continue }
+
+      const nextDigits = removeDigitFromArray(currentDigit, digitsLeft)
+
       if (combination.length === DIGITS.length) {
-        combitations.push(combination)
+        sum++
+        combinations.push(combination)
+
+        continue
       }
+      replaceDigits(combination, nextDigits)
     }
   }
 
-  for (let i = 2; i <= DIGITS.length; i++) {
-    replaceDigits([i], removeDigitFromArray(i, DIGITS))
-  }
-  // for (let i = 2; i <= DIGITS.length; i++) {
+  replaceDigits([2], removeDigitFromArray(2, DIGITS))
+
+  console.log(combinations)
+
+  // for (let i = 2; i <= DIGITS.length - 2; i++) {
   //   replaceDigits([i], removeDigitFromArray(i, DIGITS))
   // }
 
-  const validated = combitations.filter((c) => validator([DIGITS], [c]))
+  const validated = combinations.filter((c) => validator([DIGITS], [c]))
+
+  const entries = combinations
+    .reduce((acc, com) => {
+      if (!acc[com[0]]) acc[com[0]] = 0
+
+      acc[com[0]] += 1
+
+      return acc
+    }, {})
+
+  console.log(entries)
+  console.log([...new Set(Object.values(entries))])
+
+  console.log(sum, Object.values(entries)[0] * (DIGITS.length - 1))
 
   return BigInt(validated.length)
 }
@@ -143,14 +163,24 @@ const allPermuted = (l) => {
 // eslint-disable-next-line no-use-before-define
 // console.log(validator(digits, schema))
 
-console.log(allPermuted(1n) === 0n)
-console.log(allPermuted(4n) === 9n)
-console.log(allPermuted(5n) === 44n)
-console.log(allPermuted(10n) === 1334961n)
+// const start = Date.now()
+
+// console.log(allPermuted(10n) === 1334961n)
+
+// console.log('End in: ', (Date.now() - start) / 1000)
+
+// console.log(allPermuted(1n) === 0n)
+// console.log(allPermuted(3n), 2n)
+console.log(allPermuted(4n), 9n)
+// console.log(allPermuted(5n), 44n)
+// console.log(allPermuted(6n), 265n)
+// console.log(allPermuted(10n) === 1334961n)
 // console.log(allPermuted(11n) === 14684570n)
 // console.log(allPermuted(12n) === 176214841n)
 // console.log(allPermuted(16n), 7697064251745n)
 // console.log(allPermuted(30n), 97581073836835777732377428235481n)
+
+function sumAB(a, b) { return a + b }
 
 function removeDigitFromArray(digit, array) {
   return array.filter((d) => d !== digit)
@@ -197,3 +227,12 @@ function validator(_digits, _schema, log = false) {
 
   return allColumnsIsSameLength && isDifferenPosition && isOnlyUniqeValues && isDigitsNotRepeated
 }
+
+// const entries = combinations
+//     .reduce((acc, com) => {
+//       if (!acc[com[0]]) acc[com[0]] = 0
+
+//       acc[com[0]] += 1
+
+//       return acc
+//     }, {})
